@@ -1,8 +1,5 @@
 # Single-cycle-MIPS
-Sure ✅ — here’s the **exact, ready-to-copy** `README.md` file content for your GitHub MIPS project.
-You can copy everything below (from `# MIPS 32-bit Processor Project` to the end) directly into your `README.md` file.
 
----
 
 # MIPS 32-bit Processor Project
 
