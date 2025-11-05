@@ -1,86 +1,92 @@
 # Single-cycle-MIPS
-Overview
-This project implements a simplified 32-bit MIPS single-cycle processor using Verilog HDL.
-The processor is capable of executing a small subset of MIPS instructions such as ADD, SUB, AND, LW, SW, BEQ, and ADDI.
-The design was developed and simulated using Vivado and follows the classical single-cycle MIPS architecture structure.
-Architecture
+Sure ✅ — here’s the **exact, ready-to-copy** `README.md` file content for your GitHub MIPS project.
+You can copy everything below (from `# MIPS 32-bit Processor Project` to the end) directly into your `README.md` file.
+
+---
+
+# MIPS 32-bit Processor Project
+
+## 📘 Overview
+
+This project implements a simplified **32-bit MIPS single-cycle processor** using Verilog HDL.
+The processor is capable of executing a small subset of MIPS instructions such as **ADD**, **SUB**, **AND**, **LW**, **SW**, **BEQ**, and **ADDI**.
+The design was developed and simulated using **Vivado** and follows the classical single-cycle MIPS architecture structure.
+
+---
+
+## 🧠 Architecture
 
 The processor architecture consists of the following major modules:
 
-Program Counter (PC) – Holds the address of the next instruction.
+1. **Program Counter (PC)** – Holds the address of the next instruction.
+2. **Instruction Memory** – Stores program instructions.
+3. **Control Unit** – Generates control signals based on opcode and function fields.
+4. **Register File** – Contains 32 general-purpose 32-bit registers.
+5. **ALU (Arithmetic Logic Unit)** – Performs arithmetic and logical operations.
+6. **Data Memory** – Handles load and store operations.
+7. **Branch Logic** – Implements conditional branching based on ALU zero signal.
 
-Instruction Memory – Stores program instructions.
+The modules are interconnected in the **top-level module (`mips_cpu.v`)**, which coordinates instruction fetching, decoding, execution, memory access, and write-back.
 
-Control Unit – Generates control signals based on opcode and function fields.
+---
 
-Register File – Contains 32 general-purpose 32-bit registers.
+## 📚 Theoretical Overview
 
-ALU (Arithmetic Logic Unit) – Performs arithmetic and logical operations.
+The MIPS processor is a **RISC (Reduced Instruction Set Computer)** architecture that emphasizes:
 
-Data Memory – Handles load and store operations.
+* Simple, fixed-length 32-bit instructions
+* Load/store architecture
+* Three instruction types (R-type, I-type, J-type)
+* Register-based computation with few addressing modes
 
-Branch Logic – Implements conditional branching based on ALU zero signal.
+**Instruction execution flow:**
 
-Theoretical Overview
-
-The MIPS processor is a RISC (Reduced Instruction Set Computer) architecture that emphasizes:
-
-Simple, fixed-length 32-bit instructions
-
-Load/store architecture
-
-Three instruction types (R-type, I-type, J-type)
-
-Register-based computation with few addressing modes
-
-Instruction execution flow:
-
-Instruction Fetch – PC provides address to Instruction Memory.
-
-Decode – Control unit interprets opcode/funct fields.
-
-Execute – ALU performs the desired operation.
-
-Memory Access – Data memory accessed if needed.
-
-Write-Back – Result stored back to register file.
+1. **Instruction Fetch** – PC provides address to Instruction Memory.
+2. **Decode** – Control unit interprets opcode/funct fields.
+3. **Execute** – ALU performs the desired operation.
+4. **Memory Access** – Data memory accessed if needed.
+5. **Write-Back** – Result stored back to register file.
 
 The control unit determines the values of:
 
-RegDst, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, and ALUControl.
+* `RegDst`, `ALUSrc`, `MemtoReg`, `RegWrite`, `MemRead`, `MemWrite`, `Branch`, and `ALUControl`.
 
-⚙️ Structural Characteristics (for 32-bit Implementation)
-Component	Bit Width	Description
-Data Bus	32 bits	Used for data transfer between components
-Address Bus	32 bits	Used by PC, instruction, and data memory
-Registers	32 × 32 bits	32 general-purpose registers
-ALU	32-bit	Performs addition, subtraction, AND
-Memory	256 × 32 bits	Instruction and data memories
-Control Signals	Varying	Based on instruction type
+---
 
-Supported Instructions
+## ⚙️ Structural Characteristics (for 32-bit Implementation)
 
-R-Type: ADD, SUB, AND
+| Component       | Bit Width     | Description                               |
+| --------------- | ------------- | ----------------------------------------- |
+| Data Bus        | 32 bits       | Used for data transfer between components |
+| Address Bus     | 32 bits       | Used by PC, instruction, and data memory  |
+| Registers       | 32 × 32 bits  | 32 general-purpose registers              |
+| ALU             | 32-bit        | Performs addition, subtraction, AND       |
+| Memory          | 256 × 32 bits | Instruction and data memories             |
+| Control Signals | Varying       | Based on instruction type                 |
 
-I-Type: LW, SW, BEQ, ADDI
+**Supported Instructions**
 
-🧩 Simulation Results
-Testbench: mips_cpu_tb.v
+* R-Type: `ADD`, `SUB`, `AND`
+* I-Type: `LW`, `SW`, `BEQ`, `ADDI`
+
+---
+
+## 🧩 Simulation Results
+
+### Testbench: `mips_cpu_tb.v`
 
 The testbench initializes the processor, toggles the clock, and displays register and memory contents after execution.
 
-Key Simulation Steps:
+**Key Simulation Steps:**
 
-Reset asserted for 15 ns
+* Reset asserted for 15 ns
+* Clock toggled every 5 ns
+* Instruction memory preloaded with a small MIPS program
+* Register and data memory contents displayed after 600 ns
 
-Clock toggled every 5 ns
+**Expected Output (example):**
 
-Instruction memory preloaded with a small MIPS program
-
-Register and data memory contents displayed after 600 ns
-
-Expected Output (example):
-
+```
 >> CPU running...
 R[0] = 00000000
 R[1] = 0000000A
@@ -92,58 +98,71 @@ MEM[0] = 0000000D
 MEM[1] = DEADBEEF
 ...
 Simulation finished.
+```
 
-🧱 Physical Design
+---
+
+## 🧱 Physical Design
 
 In the physical design stage, the synthesized Verilog modules can be implemented on FPGA or ASIC platforms.
 
-FPGA Implementation (Vivado):
+**FPGA Implementation (Vivado):**
 
-Target Device: Xilinx Artix-7 (xc7a35ticsg324-1L)
+* Target Device: Xilinx Artix-7 (xc7a35ticsg324-1L)
+* Synthesis Tool: Vivado 2023.1
+* Simulation Tool: Vivado Simulator / ModelSim
 
-Synthesis Tool: Vivado 2023.1
+**Post-synthesis Reports:**
 
-Simulation Tool: Vivado Simulator / ModelSim
+* LUT Utilization
+* Flip-Flop Count
+* Timing Summary (Slack, Delay)
+* Power Analysis (Dynamic + Leakage)
 
-Post-synthesis Reports:
+---
 
-LUT Utilization
+## ⚠️ Disadvantages
 
-Flip-Flop Count
+* Single-cycle architecture → all instructions take the same cycle time (slow for memory ops)
+* No pipelining → lower throughput compared to multi-cycle/pipelined MIPS
+* Limited instruction set (for simplicity)
+* No hazard detection or forwarding mechanisms
 
-Timing Summary (Slack, Delay)
+---
 
-Power Analysis (Dynamic + Leakage)
-
-⚠️ Disadvantages
-
-Single-cycle architecture → all instructions take the same cycle time (slow for memory ops)
-
-No pipelining → lower throughput compared to multi-cycle/pipelined MIPS
-
-Limited instruction set (for simplicity)
-
-No hazard detection or forwarding mechanisms
-
-🏗️ Complete ASIC Design
+## 🏗️ Complete ASIC Design
 
 For ASIC design flow:
 
-RTL Design: Verilog modules written and verified
+1. **RTL Design:** Verilog modules written and verified
+2. **Synthesis:** RTL → gate-level netlist
+3. **Floorplanning:** Define chip area and power distribution
+4. **Placement:** Positioning of standard cells
+5. **Clock Tree Synthesis (CTS):** Clock signal balancing
+6. **Routing:** Interconnects between cells
+7. **DRC/LVS Checks:** Design rule and layout vs schematic verification
+8. **Tape-out:** Final GDSII generation for fabrication
 
-Synthesis: RTL → gate-level netlist
+---
 
-Floorplanning: Define chip area and power distribution
+## 📊 Results & Design Flow
 
-Placement: Positioning of standard cells
+| Stage                 | Tool                               | Output                     |
+| --------------------- | ---------------------------------- | -------------------------- |
+| RTL Coding            | Verilog                            | Behavioral Models          |
+| Functional Simulation | Vivado / ModelSim                  | Waveform Verification      |
+| Synthesis             | Vivado                             | Netlist & Resource Reports |
+| Implementation        | Vivado                             | Placement & Routing        |
+| Bitstream Generation  | Vivado                             | .bit File for FPGA         |
+| ASIC Flow             | Cadence                            | GDSII Layout               |
 
-Clock Tree Synthesis (CTS): Clock signal balancing
+**Performance Summary**
 
-Routing: Interconnects between cells
+* Word Length: 32 bits
+* Clock Frequency: 100 MHz (nominal)
+* Instruction Memory: 256 words
+* Data Memory: 256 words
+* Average CPI: 1 (single-cycle)
 
-DRC/LVS Checks: Design rule and layout vs schematic verification
 
-Tape-out: Final GDSII generation for fabrication
 
-📊 Results & Design Flow
-The modules are interconnected in the top-level module (mips_cpu.v), which coordinates instruction fetching, decoding, execution, memory access, and write-back.
